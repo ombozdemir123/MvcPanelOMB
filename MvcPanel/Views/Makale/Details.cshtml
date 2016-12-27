@@ -1,0 +1,86 @@
+﻿@model MvcPanel.Models.Makale
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-danger text-center">@Model.Baslik</h2>
+
+<div>
+    <h4>@Model.Kullanici.KullaniciAdi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kategori.KategoriAdi)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tarih)
+        </dd>
+ 
+        <dt>
+            @Html.DisplayNameFor(model => model.Icerik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Icerik)
+        </dd>
+
+       
+     
+
+    </dl>
+</div>
+@if (Model.Kullanici.KullaniciAdi == Session["username"].ToString())
+{
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        
+        @Html.ActionLink("Etiket Ekle", "Edit", new { id = Model.ID })
+    </p>
+}
+    
+<hr />
+<div>
+    <textarea type="Text" id="yorum"></textarea>
+    <br/>
+    <button type="button" class="btn-info" id="YorumYap" >Yorum Yap</button>
+</div>
+
+<hr/>
+@Html.Partial("YorumListele", Model.Yorums.ToList())
+ 
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("YorumYap").click(function() {
+                var yorumumuz = $("yorum").val();
+                $.ajax({
+                    url: '/Makale/YorumYap',
+                    data:{ yorum.yorumumuz, MakaleID:@Model.ID},
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert("Başarılı");
+                    }
+
+
+
+                });
+            });
+        });
+
+    </script>
+
+
+
+
+    }

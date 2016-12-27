@@ -1,0 +1,14 @@
+﻿@model MvcPanel.Models.Kullanici
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hoşgeldiniz Sn. @Html.LabelFor(model => model.Isim)</h2>
+
+<p>Yazdığınız Makale Sayısı : @Html.LabelFor(model => model.Makales.Count)</p>
+
+@Html.ActionLink("Makale Yaz","Create","Makale") |
+@Html.ActionLink("Makalelerimi Listele","KisiMakaleListele", "Makale")
+
+
